@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return const MaterialApp(
       home: MyHomePage(),
       debugShowCheckedModeBanner: false,
@@ -43,15 +43,24 @@ late AnimationController yellowController;
     yellowanimation = Tween<AlignmentGeometry>(begin: Alignment.centerLeft,end: Alignment.bottomCenter).animate(CurvedAnimation(parent: yellowController, curve: Curves.easeInOut));
     redanimation = Tween<AlignmentGeometry>(begin: Alignment.centerRight,end: Alignment.topCenter).animate(CurvedAnimation(parent: greenController, curve: Curves.easeInOut));
     blackanimation = Tween<AlignmentGeometry>(begin: Alignment.bottomCenter,end: Alignment.centerRight).animate(CurvedAnimation(parent: greenController, curve: Curves.easeInOut));
-    greenanimation.addStatusListener((status){
-      if(greenController.status == AnimationStatus.completed && yellowController.status == AnimationStatus.dismissed){
+    greenController.addListener((){
+      if(greenController.value >= .5 && yellowController.value == 0){
         yellowController.forward();
-      }
-      if(greenController.status == AnimationStatus.dismissed && yellowController.status == AnimationStatus.completed){
+      }                                                                   //yellow movve after green reach to midlle
+      if(greenController.value <= .5 && yellowController.value == 1){
         yellowController.reverse();
       }
 
   });
+    /*greenanimation.addStatusListener((status){
+      if(greenController.status == AnimationStatus.completed && yellowController.status == AnimationStatus.dismissed){
+        yellowController.forward();
+      }
+      if(greenController.status == AnimationStatus.dismissed && yellowController.status == AnimationStatus.completed){   yellow move after green finish
+        yellowController.reverse();
+      }
+
+  });*/
     super.initState();
   }
 
