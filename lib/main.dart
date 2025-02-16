@@ -30,20 +30,37 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
 late Animation<AlignmentGeometry>greenanimation;
-late Animation<AlignmentGeometry>yellowanimation;
+/*late Animation<AlignmentGeometry>yellowanimation;
 late Animation<AlignmentGeometry>redanimation;
-late Animation<AlignmentGeometry>blackanimation;
+late Animation<AlignmentGeometry>blackanimation;*/
 late AnimationController greenController;
-late AnimationController yellowController;
+/*late AnimationController yellowController;
+late AnimationController redController;
+late AnimationController blackController;*/
 @override
   void initState() {
   greenController = AnimationController(vsync: this ,duration: Duration(seconds: 2),reverseDuration: Duration(seconds: 2));
-  yellowController = AnimationController(vsync: this ,duration: Duration(seconds: 2),reverseDuration: Duration(seconds: 2));
-    greenanimation = Tween<AlignmentGeometry>(begin: Alignment.topCenter,end: Alignment.centerLeft).animate(CurvedAnimation(parent: greenController, curve: Curves.easeInOut));
-    yellowanimation = Tween<AlignmentGeometry>(begin: Alignment.centerLeft,end: Alignment.bottomCenter).animate(CurvedAnimation(parent: yellowController, curve: Curves.easeInOut));
-    redanimation = Tween<AlignmentGeometry>(begin: Alignment.centerRight,end: Alignment.topCenter).animate(CurvedAnimation(parent: greenController, curve: Curves.easeInOut));
-    blackanimation = Tween<AlignmentGeometry>(begin: Alignment.bottomCenter,end: Alignment.centerRight).animate(CurvedAnimation(parent: greenController, curve: Curves.easeInOut));
-    greenController.addListener((){
+  /*yellowController = AnimationController(
+      vsync: this ,
+      duration: Duration(seconds: 2),
+      reverseDuration: Duration(seconds: 2));
+  redController = AnimationController(
+      vsync: this ,
+      duration: Duration(seconds: 2),
+      reverseDuration: Duration(seconds: 2));
+  blackController = AnimationController(
+      vsync: this ,
+      duration: Duration(seconds: 2),
+      reverseDuration: Duration(seconds: 2));*/
+  greenanimation = Tween<AlignmentGeometry>(begin: Alignment.topCenter,end: Alignment.centerLeft).animate(CurvedAnimation(parent: greenController, curve: Curves.easeInOut));
+   /* yellowanimation = Tween<AlignmentGeometry>(
+        begin: Alignment.centerLeft,
+        end: Alignment.bottomCenter).animate(CurvedAnimation(
+        parent: yellowController,
+        curve: Curves.easeInOut));
+    redanimation = Tween<AlignmentGeometry>(begin: Alignment.centerRight,end: Alignment.topCenter).animate(CurvedAnimation(parent: redController, curve: Curves.easeInOut));
+    blackanimation = Tween<AlignmentGeometry>(begin: Alignment.bottomCenter,end: Alignment.centerRight).animate(CurvedAnimation(parent: blackController, curve: Curves.easeInOut));*/
+    /*greenController.addListener((){
       if(greenController.value >= .5 && yellowController.value == 0){
         yellowController.forward();
       }                                                                   //yellow movve after green reach to midlle
@@ -51,17 +68,38 @@ late AnimationController yellowController;
         yellowController.reverse();
       }
 
-  });
+  });*/
     /*greenanimation.addStatusListener((status){
       if(greenController.status == AnimationStatus.completed && yellowController.status == AnimationStatus.dismissed){
         yellowController.forward();
       }
-      if(greenController.status == AnimationStatus.dismissed && yellowController.status == AnimationStatus.completed){   yellow move after green finish
+      if(greenController.status == AnimationStatus.dismissed && yellowController.status == AnimationStatus.completed){
         yellowController.reverse();
       }
-
+  });
+    yellowanimation.addStatusListener((status){
+    if(yellowController.status == AnimationStatus.completed && blackController.status == AnimationStatus.dismissed){
+      blackController.forward();
+    }
+    if(yellowController.status == AnimationStatus.dismissed && blackController.status == AnimationStatus.completed){
+      blackController.reverse();
+    }
+  });
+    blackController.addStatusListener((status){
+    if(blackController.status == AnimationStatus.completed && redController.status == AnimationStatus.dismissed){
+      redController.forward();
+    }
+    if(blackController.status == AnimationStatus.dismissed && redController.status == AnimationStatus.completed){
+      redController.reverse();
+    }
   });*/
+
     super.initState();
+  }
+  @override
+  void dispose() {
+    greenController.dispose();
+    super.dispose();
   }
 
   @override
@@ -97,7 +135,7 @@ late AnimationController yellowController;
                 alignment: greenanimation,
                 child: const CircleAvatar(backgroundColor: Colors.green,),
               ),
-               AlignTransition(
+               /*AlignTransition(
                 alignment: yellowanimation,
                 child: CircleAvatar(backgroundColor: Colors.yellow,),
               ),
@@ -108,7 +146,7 @@ late AnimationController yellowController;
               AlignTransition(
                 alignment: blackanimation,
                 child: CircleAvatar(backgroundColor: Colors.black,),
-              ),
+              ),*/
             ],
           )),
           Wrap(
